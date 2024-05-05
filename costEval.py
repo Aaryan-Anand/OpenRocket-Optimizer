@@ -14,7 +14,6 @@ def cost(filename):
         score += (dat[i][3][0]>=0.1)*sqrt(2*(dat[i][0]*3.28084)**2/dat[i][1]/dat[i][2])/(dat[i][3][1]+0.88)
     return score
 
-
 def simFlight(filename):
     # Use ORHelper to interact with OpenRocket
     flightData = []
@@ -23,7 +22,7 @@ def simFlight(filename):
         orh = orhelper.Helper(instance)
         for i in range(2):
             # Load the OpenRocket document, run the simulation, and get data and events
-            doc = orh.load_doc(os.path.join('.ork', filename))
+            doc = orh.load_doc(os.path.join('.cache', filename))
             sim = doc.getSimulation(i)
             orh.run_simulation(sim)
             
@@ -43,7 +42,7 @@ def simFlight(filename):
             # Assuming the last time recorded is the end of the flight
             total_flight_time = events[FlightEvent.GROUND_HIT][0] - events[FlightEvent.LIFTOFF][0]
             
-            cg = data[FlightDataType.TYPE_CG_LOCATION][1]  # Last value, assuming stable throughout or at end of simulation
+            cg = data[FlightDataType.TYPE_CG_LOCATION][1]
             cp_mean = np.nanmean(data[FlightDataType.TYPE_CP_LOCATION][0:apogee_index])
             cp_min = np.nanmin(data[FlightDataType.TYPE_CP_LOCATION][0:burnout_index])
             airframe_diam = data[FlightDataType.TYPE_REFERENCE_LENGTH]
@@ -52,7 +51,3 @@ def simFlight(filename):
             flightData.append([apogee_altitude, apogee_time, total_flight_time, stability_percentage])
 
     return flightData
-
-
-print(cost("sample.ork"))
-
