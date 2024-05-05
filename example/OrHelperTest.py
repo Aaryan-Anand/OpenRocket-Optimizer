@@ -7,7 +7,7 @@ import orhelper
 from orhelper import FlightDataType, FlightEvent
 
 
-os.environ['JAVA_HOME'] = 'D:\Repos\Rocketry\OR-Optimizer\JVM'
+os.environ['JAVA_HOME'] = 'JVM'
 
 
 with orhelper.OpenRocketInstance() as instance:
@@ -15,7 +15,7 @@ with orhelper.OpenRocketInstance() as instance:
 
     # Load document, run simulation and get data and events
 
-    doc = orh.load_doc(os.path.join('.ork', 'sample.ork'))
+    doc = orh.load_doc(os.path.join('.ork', 'modified_sample.ork'))
     sim = doc.getSimulation(0)
     orh.run_simulation(sim)
     data = orh.get_timeseries(sim, [FlightDataType.TYPE_TIME, FlightDataType.TYPE_ALTITUDE, FlightDataType.TYPE_VELOCITY_Z])
