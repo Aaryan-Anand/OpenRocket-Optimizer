@@ -11,7 +11,10 @@ def cost(filename):
     dat = simFlight(filename)
     score = 0
     for i in range(2):
-        score += (dat[i][3][0]>=0.1)*sqrt(2*(dat[i][0]*3.28084)**2/dat[i][1]/dat[i][2])/(dat[i][3][1]+0.88)
+        if dat[i][3][1] > 0.12:
+            score += (dat[i][3][0]>=0.1)*sqrt(2*(dat[i][0]*3.28084)**2/dat[i][1]/dat[i][2])/(dat[i][3][1]+0.88)
+        else:
+            score += (dat[i][3][0]>=0.1)*sqrt(2*(dat[i][0]*3.28084)**2/dat[i][1]/dat[i][2])*(dat[i][3][1]+0.88)
     return score
 
 def simFlight(filename):
